@@ -12,7 +12,7 @@ func CountIntegers(num int64) int64 {
 	return int64(len(numStr))
 }
 
-func IsValidLength(minValue, maxValue, desiredLength int64) error {
+func IsValidIntegerLength(minValue, maxValue, desiredLength int64) error {
 	minLengthValue := CountIntegers(minValue)
 	maxLengthValue := CountIntegers(maxValue)
 
@@ -32,14 +32,7 @@ func IsValidLength(minValue, maxValue, desiredLength int64) error {
 	return nil
 }
 
-func DesireCountLimit(count int64) error {
-	if count > 100000 {
-		return errors.New("for now we support only upto 10^5")
-	}
-	return nil
-}
-
-func ValidateInputs(minValue, maxValue, desiredLength, count int64) error {
+func ValidateIntegerInputs(minValue, maxValue, desiredLength, count int64) error {
 	if minValue > maxValue {
 		return errors.New("minValue should be less than or equal to maxValue")
 	}

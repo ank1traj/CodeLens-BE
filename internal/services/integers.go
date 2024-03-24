@@ -7,11 +7,11 @@ import (
 )
 
 func GenerateRandomIntegers(request models.GenerateRandomIntegersRequest) (models.GenerateRandomIntegersResponse, error) {
-	if err := utils.ValidateInputs(request.MinValue, request.MaxValue, request.DesiredLength, request.Count); err != nil {
+	if err := utils.ValidateIntegerInputs(request.MinValue, request.MaxValue, request.DesiredLength, request.Count); err != nil {
 		return models.GenerateRandomIntegersResponse{}, err
 	}
 
-	if err := utils.IsValidLength(request.MinValue, request.MaxValue, request.DesiredLength); err != nil {
+	if err := utils.IsValidIntegerLength(request.MinValue, request.MaxValue, request.DesiredLength); err != nil {
 		return models.GenerateRandomIntegersResponse{}, err
 	}
 
