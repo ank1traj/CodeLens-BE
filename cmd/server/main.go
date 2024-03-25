@@ -11,13 +11,11 @@ import (
 )
 
 func goDotEnvVariable(key string) string {
-
 	err := godotenv.Load(".env")
-
 	if err != nil {
-		log.Fatalf("Error loading .env file")
+		log.Fatalf("No .env file found")
+		return ""
 	}
-
 	return os.Getenv(key)
 }
 
@@ -44,12 +42,12 @@ func main() {
 
 	err := sentry.Init(sentry.ClientOptions{
 		Dsn:              DSN,
-		Debug:            true,
+		Debug:            false,
 		EnableTracing:    true,
 		TracesSampleRate: 1.0,
-		TracesSampler: sentry.TracesSampler(func(ctx sentry.SamplingContext) float64 {
+		TracesSampler: func(ctx sentry.SamplingContext) float64 {
 			return 1.0
-		}),
+		},
 		ProfilesSampleRate: 1.0,
 	})
 	if err != nil {
