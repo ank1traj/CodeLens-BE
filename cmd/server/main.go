@@ -4,7 +4,6 @@ import (
 	"github.com/getsentry/sentry-go"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	_ "github.com/joho/godotenv"
 	"log"
 	"os"
 	"testcase/internal/handlers"
@@ -72,7 +71,6 @@ func main() {
 
 	err = router.Run(":8080")
 	if err != nil {
-		println(err)
-		panic(err)
+		log.Fatalf("Failed to start server: %s", err)
 	}
 }
