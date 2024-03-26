@@ -7,7 +7,7 @@ import (
 )
 
 func GenerateRandomArray(request models.GenerateRandomArrayRequest) (models.GenerateRandomArrayResponse, error) {
-	if err := utils.ValidateArrayInputs(request.MinValue, request.MaxValue, request.DesiredSize, request.DesiredLength, request.Count); err != nil {
+	if err := utils.ValidateMinAndMax(request.MinValue, request.MaxValue); err != nil {
 		return models.GenerateRandomArrayResponse{}, err
 	}
 

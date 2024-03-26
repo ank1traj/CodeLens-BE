@@ -13,8 +13,7 @@ import (
 func goDotEnvVariable(key string) string {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatalf("No .env file found")
-		return ""
+		log.Println("Error loading .env file")
 	}
 	return os.Getenv(key)
 }

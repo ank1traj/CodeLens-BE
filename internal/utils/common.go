@@ -29,7 +29,7 @@ func ValidateStruct(s interface{}, validate *validator.Validate) error {
 				Error: formatErrorMessage(err),
 			})
 		}
-		return fmt.Errorf("validation errors: %s", validationErrorsToString(validationErrors))
+		return fmt.Errorf(validationErrorsToString(validationErrors))
 	}
 	return nil
 }
@@ -37,9 +37,11 @@ func ValidateStruct(s interface{}, validate *validator.Validate) error {
 func formatErrorMessage(err validator.FieldError) string {
 	switch err.Tag() {
 	case "required":
-		return fmt.Sprintf("field %s is required", err.Field())
+		return fmt.Sprintf("%s field is required", err.Field())
 	case "min":
-		return fmt.Sprintf("field %s must be at least %s", err.Field(), err.Param())
+		return fmt.Sprintf("%s field must be at least %s", err.Field(), err.Param())
+	case "gte":
+		return fmt.Sprintf("%s field must be greater or equal to %s", err.Field(), err.Param())
 	default:
 		return fmt.Sprintf("validation failed on field %s", err.Field())
 	}
@@ -48,7 +50,14 @@ func formatErrorMessage(err validator.FieldError) string {
 func validationErrorsToString(errors []ValidationError) string {
 	var errorStrings []string
 	for _, err := range errors {
-		errorStrings = append(errorStrings, fmt.Sprintf("%s: %s", err.Field, err.Error))
+		errorStrings = append(errorStrings, err.Error)
 	}
 	return strings.Join(errorStrings, ", ")
+}
+
+func ValidateMinAndMax(minValue, maxValue int64) error {
+	if minValue > maxValue {
+		return errors.New("minValue should be less than or equal to maxValue")
+	}
+	return nil
 }
