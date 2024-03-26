@@ -13,8 +13,7 @@ import (
 func goDotEnvVariable(key string) string {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatalf("No .env file found")
-		return ""
+		log.Println("Error loading .env file")
 	}
 	return os.Getenv(key)
 }
@@ -66,6 +65,7 @@ func main() {
 
 	router.POST("/generateInteger", handlers.GenerateRandomIntegersHandler)
 	router.POST("/generateString", handlers.GenerateRandomStringsHandler)
+	router.POST("/generateArray", handlers.GenerateRandomArrayHandler)
 
 	err = router.Run(":8080")
 	if err != nil {
