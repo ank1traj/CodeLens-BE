@@ -6,8 +6,8 @@ import (
 )
 
 type GenerateRandomStringsRequest struct {
-	Count  int64 `json:"count" validate:"required,gte=1,omitempty"`
-	Length int64 `json:"length" validate:"required,gte=1,omitempty"`
+	Count  int64 `json:"count" validate:"required,gte=1"`
+	Length int64 `json:"length" validate:"required,gte=1"`
 }
 
 func (r *GenerateRandomStringsRequest) ValidateString() error {
