@@ -8,8 +8,8 @@ import (
 type GenerateRandomIntegersRequest struct {
 	MinValue      int64 `json:"min_value" validate:"required"`
 	MaxValue      int64 `json:"max_value" validate:"required"`
-	DesiredLength int64 `json:"desired_length" validate:"required,gte=1,omitempty"`
-	Count         int64 `json:"count" validate:"required,gte=1,omitempty"`
+	DesiredLength int64 `json:"desired_length" validate:"required,gte=1"`
+	Count         int64 `json:"count" validate:"required,gte=1"`
 }
 
 func (r *GenerateRandomIntegersRequest) ValidateInteger() error {
