@@ -15,6 +15,11 @@ func GenerateRandomIntegersHandler(c *gin.Context) {
 		return
 	}
 
+	if err := request.ValidateInteger(); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
+		return
+	}
+
 	result, err := services.GenerateRandomIntegers(request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

@@ -66,6 +66,7 @@ func main() {
 
 	router.POST("/generateInteger", handlers.GenerateRandomIntegersHandler)
 	router.POST("/generateString", handlers.GenerateRandomStringsHandler)
+	router.POST("/generateArray", handlers.GenerateRandomArrayHandler)
 
 	err = router.Run(":8080")
 	if err != nil {

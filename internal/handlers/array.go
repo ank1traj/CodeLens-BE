@@ -8,19 +8,19 @@ import (
 	"testcase/internal/services"
 )
 
-func GenerateRandomStringsHandler(c *gin.Context) {
-	var request models.GenerateRandomStringsRequest
+func GenerateRandomArrayHandler(c *gin.Context) {
+	var request models.GenerateRandomArrayRequest
 	if err := c.BindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := request.ValidateString(); err != nil {
+	if err := request.ValidateArray(); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
 		return
 	}
 
-	result, err := services.GenerateRandomString(request)
+	result, err := services.GenerateRandomArray(request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
