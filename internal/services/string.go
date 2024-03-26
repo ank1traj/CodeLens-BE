@@ -16,9 +16,6 @@ func GenerateRandomString(request models.GenerateRandomStringsRequest) (models.G
 		return models.GenerateRandomStringsResponse{}, err
 	}
 
-	if err := utils.DesireCountLimit(request.Count); err != nil {
-		return models.GenerateRandomStringsResponse{}, err
-	}
 
 	charSet := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	rand.Seed(time.Now().UnixNano())
