@@ -26,7 +26,6 @@ func GenerateRandomIntegers(request models.GenerateRandomIntegersRequest) (model
 			result = append(result, randomValue)
 		}
 	}
-
 	response := models.GenerateRandomIntegersResponse{RandomValues: result}
 	return response, nil
 }

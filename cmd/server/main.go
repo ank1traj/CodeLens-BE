@@ -21,9 +21,9 @@ func goDotEnvVariable(key string) string {
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Origin", "http://localhost:5173")
 		c.Header("Access-Control-Allow-Credentials", "true")
-		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, baggage, sentry-trace") // Include sentry-trace header
 		c.Header("Access-Control-Allow-Methods", "POST,HEAD,PATCH, OPTIONS, GET, PUT")
 
 		if c.Request.Method == "OPTIONS" {
@@ -38,9 +38,15 @@ func CORSMiddleware() gin.HandlerFunc {
 func main() {
 
 	DSN := goDotEnvVariable("SENTRY_DSN")
+	ENVIRONMENT := goDotEnvVariable("SENTRY_ENV")
+
+	if ENVIRONMENT == "" {
+		ENVIRONMENT = "development"
+	}
 
 	err := sentry.Init(sentry.ClientOptions{
 		Dsn:              DSN,
+		Environment:      ENVIRONMENT,
 		Debug:            false,
 		EnableTracing:    true,
 		TracesSampleRate: 1.0,

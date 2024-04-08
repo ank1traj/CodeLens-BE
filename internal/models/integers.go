@@ -10,6 +10,8 @@ type GenerateRandomIntegersRequest struct {
 	MaxValue      int64 `json:"max_value" validate:"required"`
 	DesiredLength int64 `json:"desired_length" validate:"required,gte=1,omitempty"`
 	Count         int64 `json:"count" validate:"required,gte=1,omitempty"`
+	ShowCount     bool  `json:"show_count"`
+	ShowLength    bool  `json:"show_length"`
 }
 
 func (r *GenerateRandomIntegersRequest) ValidateInteger() error {
